@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="PresensiDataSet" targetNamespace="http://tempuri.org/PresensiDataSet.xsd" xmlns:mstns="http://tempuri.org/PresensiDataSet.xsd" xmlns="http://tempuri.org/PresensiDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="PresensiMahasiswaProdiTIConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="PresensiMahasiswaProdiTIConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.projectsem4.Properties.Settings.GlobalReference.Default.PresensiMahasiswaProdiTIConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="DataTable1TableAdapter" GeneratorDataComponentClassName="DataTable1TableAdapter" Name="DataTable1" UserDataComponentName="DataTable1TableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="PresensiMahasiswaProdiTIConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT p.id_presensi, m.nim, m.nama_mhs, m.kelas, mk.nama_mk, d.nama_dosen, jk.hari, jk.jam_mulai, jk.jam_selesai, p.tanggal, p.status
+FROM   Presensi AS p INNER JOIN
+             Mahasiswa AS m ON p.nim = m.nim INNER JOIN
+             JadwalKuliah AS jk ON p.id_jadwal = jk.id_jadwal INNER JOIN
+             MataKuliah AS mk ON jk.kode_mk = mk.kode_mk INNER JOIN
+             Dosen AS d ON mk.id_dosen = d.id_dosen
+ORDER BY p.tanggal DESC, m.nama_mhs</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="id_presensi" DataSetColumn="id_presensi" />
+              <Mapping SourceColumn="nim" DataSetColumn="nim" />
+              <Mapping SourceColumn="nama_mhs" DataSetColumn="nama_mhs" />
+              <Mapping SourceColumn="kelas" DataSetColumn="kelas" />
+              <Mapping SourceColumn="nama_mk" DataSetColumn="nama_mk" />
+              <Mapping SourceColumn="nama_dosen" DataSetColumn="nama_dosen" />
+              <Mapping SourceColumn="hari" DataSetColumn="hari" />
+              <Mapping SourceColumn="jam_mulai" DataSetColumn="jam_mulai" />
+              <Mapping SourceColumn="jam_selesai" DataSetColumn="jam_selesai" />
+              <Mapping SourceColumn="tanggal" DataSetColumn="tanggal" />
+              <Mapping SourceColumn="status" DataSetColumn="status" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="PresensiDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_UserDSName="PresensiDataSet" msprop:Generator_DataSetName="PresensiDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataTable1" msprop:Generator_RowEvHandlerName="DataTable1RowChangeEventHandler" msprop:Generator_RowDeletedName="DataTable1RowDeleted" msprop:Generator_RowDeletingName="DataTable1RowDeleting" msprop:Generator_RowEvArgName="DataTable1RowChangeEvent" msprop:Generator_TablePropName="DataTable1" msprop:Generator_RowChangedName="DataTable1RowChanged" msprop:Generator_RowChangingName="DataTable1RowChanging" msprop:Generator_TableClassName="DataTable1DataTable" msprop:Generator_RowClassName="DataTable1Row" msprop:Generator_TableVarName="tableDataTable1" msprop:Generator_UserTableName="DataTable1">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="id_presensi" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="id_presensi" msprop:Generator_ColumnPropNameInTable="id_presensiColumn" msprop:Generator_ColumnVarNameInTable="columnid_presensi" msprop:Generator_UserColumnName="id_presensi" type="xs:int" />
+              <xs:element name="nim" msprop:Generator_ColumnPropNameInRow="nim" msprop:Generator_ColumnPropNameInTable="nimColumn" msprop:Generator_ColumnVarNameInTable="columnnim" msprop:Generator_UserColumnName="nim">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="13" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama_mhs" msprop:Generator_ColumnPropNameInRow="nama_mhs" msprop:Generator_ColumnPropNameInTable="nama_mhsColumn" msprop:Generator_ColumnVarNameInTable="columnnama_mhs" msprop:Generator_UserColumnName="nama_mhs" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="kelas" msprop:Generator_ColumnPropNameInRow="kelas" msprop:Generator_ColumnPropNameInTable="kelasColumn" msprop:Generator_ColumnVarNameInTable="columnkelas" msprop:Generator_UserColumnName="kelas" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama_mk" msprop:Generator_ColumnPropNameInRow="nama_mk" msprop:Generator_ColumnPropNameInTable="nama_mkColumn" msprop:Generator_ColumnVarNameInTable="columnnama_mk" msprop:Generator_UserColumnName="nama_mk">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="nama_dosen" msprop:Generator_ColumnPropNameInRow="nama_dosen" msprop:Generator_ColumnPropNameInTable="nama_dosenColumn" msprop:Generator_ColumnVarNameInTable="columnnama_dosen" msprop:Generator_UserColumnName="nama_dosen" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="hari" msprop:Generator_ColumnPropNameInRow="hari" msprop:Generator_ColumnPropNameInTable="hariColumn" msprop:Generator_ColumnVarNameInTable="columnhari" msprop:Generator_UserColumnName="hari">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="jam_mulai" msprop:Generator_ColumnPropNameInRow="jam_mulai" msprop:Generator_ColumnPropNameInTable="jam_mulaiColumn" msprop:Generator_ColumnVarNameInTable="columnjam_mulai" msprop:Generator_UserColumnName="jam_mulai" type="xs:duration" />
+              <xs:element name="jam_selesai" msprop:Generator_ColumnPropNameInRow="jam_selesai" msprop:Generator_ColumnPropNameInTable="jam_selesaiColumn" msprop:Generator_ColumnVarNameInTable="columnjam_selesai" msprop:Generator_UserColumnName="jam_selesai" type="xs:duration" />
+              <xs:element name="tanggal" msprop:Generator_ColumnPropNameInRow="tanggal" msprop:Generator_ColumnPropNameInTable="tanggalColumn" msprop:Generator_ColumnVarNameInTable="columntanggal" msprop:Generator_UserColumnName="tanggal" type="xs:dateTime" />
+              <xs:element name="status" msprop:Generator_ColumnPropNameInRow="status" msprop:Generator_ColumnPropNameInTable="statusColumn" msprop:Generator_ColumnVarNameInTable="columnstatus" msprop:Generator_UserColumnName="status">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="11" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
