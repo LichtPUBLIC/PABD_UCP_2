@@ -207,34 +207,58 @@ namespace projectsem4
         {
             if (dgvMataKuliah.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Pilih data yang akan dihapus.");
+                MessageBox.Show("Pilih data yang akan dihapus.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string kodeMK = dgvMataKuliah.SelectedRows[0].Cells["Kode MK"].Value.ToString();
-            DialogResult confirm = MessageBox.Show("Yakin ingin menghapus data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
-            if (confirm == DialogResult.No) return;
 
             using (var conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    using (var cmd = new SqlCommand("DeleteMataKuliah", conn))
+                    string checkQuery = "SELECT COUNT(*) FROM JadwalKuliah WHERE kode_mk = @kode_mk";
+                    using (var checkCmd = new SqlCommand(checkQuery, conn))
                     {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.AddWithValue("@kode_mk", kodeMK);
-                        cmd.ExecuteNonQuery();
-                    }
-                        
+                        checkCmd.Parameters.AddWithValue("@kode_mk", kodeMK);
+                        int usageCount = (int)checkCmd.ExecuteScalar();
 
-                    lblMessage.Text = "Data berhasil dihapus!";
-                    LoadData();
-                    ClearForm();
+                        if (usageCount > 0)
+                        {
+                            MessageBox.Show(
+                                "Mata kuliah ini tidak bisa dihapus karena masih terdaftar di dalam Jadwal Kuliah. Hapus dulu jadwal terkait.",
+                                "Aksi Dibatalkan",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            return; // Hentikan proses
+                        }
+                    }
+                    DialogResult confirm = MessageBox.Show(
+                        $"Yakin ingin menghapus mata kuliah dengan kode: {kodeMK}?",
+                        "Konfirmasi Hapus",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question
+                    );
+
+                    if (confirm == DialogResult.Yes)
+                    {
+                        using (var deleteCmd = new SqlCommand("DeleteMataKuliah", conn))
+                        {
+                            deleteCmd.CommandType = CommandType.StoredProcedure;
+                            deleteCmd.Parameters.AddWithValue("@kode_mk", kodeMK);
+                            deleteCmd.ExecuteNonQuery();
+                        }
+
+                        lblMessage.Text = "Data berhasil dihapus!";
+                        LoadData();
+                        ClearForm();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    lblMessage.Text = "Error: " + ex.Message;
+                    lblMessage.Text = "Terjadi error yang tidak terduga: " + ex.Message;
                 }
             }
         }

@@ -157,14 +157,14 @@
             this.dgvPresensi.Name = "dgvPresensi";
             this.dgvPresensi.RowHeadersWidth = 62;
             this.dgvPresensi.RowTemplate.Height = 28;
-            this.dgvPresensi.Size = new System.Drawing.Size(505, 167);
+            this.dgvPresensi.Size = new System.Drawing.Size(566, 167);
             this.dgvPresensi.TabIndex = 1;
             this.dgvPresensi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresensi_CellClick);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button1.Location = new System.Drawing.Point(405, 16);
+            this.button1.Location = new System.Drawing.Point(466, 16);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 33);
@@ -176,7 +176,7 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button2.Location = new System.Drawing.Point(405, 90);
+            this.button2.Location = new System.Drawing.Point(466, 90);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(121, 33);
@@ -188,7 +188,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button3.Location = new System.Drawing.Point(405, 53);
+            this.button3.Location = new System.Drawing.Point(466, 53);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(121, 33);
@@ -200,7 +200,7 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button4.Location = new System.Drawing.Point(405, 127);
+            this.button4.Location = new System.Drawing.Point(466, 127);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(121, 33);
@@ -211,7 +211,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(405, 385);
+            this.button5.Location = new System.Drawing.Point(466, 383);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(121, 23);
@@ -230,7 +230,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(505, 32);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(566, 32);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // lblMessage
@@ -247,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 416);
+            this.ClientSize = new System.Drawing.Size(604, 417);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);

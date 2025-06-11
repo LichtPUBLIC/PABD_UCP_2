@@ -215,32 +215,54 @@ namespace projectsem4
         {
             if (dgvJadwal.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Pilih data yang akan dihapus.");
+                MessageBox.Show("Pilih data yang akan dihapus.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             string idJadwal = dgvJadwal.SelectedRows[0].Cells["ID Jadwal"].Value.ToString();
-            DialogResult result = MessageBox.Show("Yakin ingin menghapus data?", "Konfirmasi", MessageBoxButtons.YesNo);
-            if (result == DialogResult.Yes)
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    try
-                    {
-                        conn.Open();
-                        SqlCommand cmd = new SqlCommand("DeleteJadwalKuliah", conn);
-                        cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@id_jadwal", idJadwal);
-                        cmd.ExecuteNonQuery();
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    // Cek apakah jadwal sudah memiliki data presensi
+                    string checkQuery = "SELECT COUNT(*) FROM Presensi WHERE id_jadwal = @id_jadwal";
+                    using (var checkCmd = new SqlCommand(checkQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@id_jadwal", idJadwal);
+                        if ((int)checkCmd.ExecuteScalar() > 0)
+                        {
+                            MessageBox.Show(
+                                "Jadwal ini tidak bisa dihapus karena sudah memiliki riwayat presensi mahasiswa.",
+                                "Aksi Dibatalkan",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            return;
+                        }
+                    }
+
+                    // Jika aman, lanjutkan proses hapus
+                    DialogResult result = MessageBox.Show($"Yakin ingin menghapus jadwal dengan ID: {idJadwal}?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        using (SqlCommand cmd = new SqlCommand("DeleteJadwalKuliah", conn))
+                        {
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.AddWithValue("@id_jadwal", idJadwal);
+                            cmd.ExecuteNonQuery();
+                        }
+
                         lblMessage.Text = "Data berhasil dihapus.";
                         LoadData();
                         ClearForm();
                     }
-                    catch (Exception ex)
-                    {
-                        lblMessage.Text = "Error: " + ex.Message;
-                    }
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Error: " + ex.Message;
                 }
             }
         }

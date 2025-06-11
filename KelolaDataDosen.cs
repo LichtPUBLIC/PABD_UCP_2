@@ -190,41 +190,55 @@ namespace projectsem4
         {
             if (dgvDosen.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Pilih data yang akan dihapus.");
+                MessageBox.Show("Pilih data yang akan dihapus.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            string id = dgvDosen.SelectedRows[0].Cells["ID"].Value.ToString();
-            DialogResult result = MessageBox.Show("Yakin ingin menghapus data?", "Konfirmasi", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
+            string idDosen = dgvDosen.SelectedRows[0].Cells["ID"].Value.ToString();
+
+            using (var conn = new SqlConnection(connectionString))
             {
-                using (var conn = new SqlConnection(connectionString))
+                try
                 {
-                    try
+                    conn.Open();
+
+                    // Cek apakah dosen masih mengajar mata kuliah
+                    string checkQuery = "SELECT COUNT(*) FROM MataKuliah WHERE id_dosen = @id_dosen";
+                    using (var checkCmd = new SqlCommand(checkQuery, conn))
                     {
-                        conn.Open();
-                        using (var cmd = new SqlCommand("DeleteDosen", conn))
+                        checkCmd.Parameters.AddWithValue("@id_dosen", idDosen);
+                        if ((int)checkCmd.ExecuteScalar() > 0)
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Parameters.AddWithValue("@id_dosen", id);
-                            cmd.ExecuteNonQuery();
-
+                            MessageBox.Show(
+                                "Dosen ini tidak bisa dihapus karena masih tercatat sebagai pengajar di satu atau lebih Mata Kuliah.",
+                                "Aksi Dibatalkan",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error
+                            );
+                            return;
                         }
-                           
+                    }
 
-                        lblMessage.Text = "Data berhasil dihapus!";
+                    // Jika aman, lanjutkan proses hapus
+                    DialogResult confirm = MessageBox.Show($"Yakin ingin menghapus dosen dengan ID: {idDosen}?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (confirm == DialogResult.Yes)
+                    {
+                        using (var deleteCmd = new SqlCommand("DeleteDosen", conn))
+                        {
+                            deleteCmd.CommandType = CommandType.StoredProcedure;
+                            deleteCmd.Parameters.AddWithValue("@id_dosen", idDosen);
+                            deleteCmd.ExecuteNonQuery();
+                        }
+
+                        lblMessage.Text = "Data dosen berhasil dihapus!";
                         LoadData();
                         ClearForm();
                     }
-                    catch (Exception ex)
-                    {
-                        lblMessage.Text = "Gagal menghapus data: " + ex.Message;
-                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Penghapusan data dibatalkan.");
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Terjadi error: " + ex.Message;
+                }
             }
         }
 
