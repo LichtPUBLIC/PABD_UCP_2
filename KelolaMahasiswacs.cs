@@ -247,27 +247,34 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin menghapus data NIM: " + nim + "?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.No) return;
 
-            try
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                using (var conn = new SqlConnection(connectionString))
+                SqlTransaction transaction = null;
+
+                try
                 {
                     conn.Open();
-                    using (var cmd = new SqlCommand("DeleteMahasiswaWithPresensi", conn))
+                    transaction = conn.BeginTransaction();
+
+                    using (SqlCommand cmd = new SqlCommand("DeleteMahasiswaWithPresensi", conn, transaction))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@nim", nim);
                         cmd.ExecuteNonQuery();
                     }
 
+                    transaction.Commit();
+
                     _cache.Remove(CacheKey);
                     lblMessage.Text = "Data berhasil dihapus!";
                     LoadData();
                     ClearForm();
                 }
-            }
-            catch (Exception ex)
-            {
-                lblMessage.Text = "Error: " + ex.Message;
+                catch (Exception ex)
+                {
+                    transaction?.Rollback();
+                    lblMessage.Text = "Error saat menghapus: " + ex.Message;
+                }
             }
         }
 
