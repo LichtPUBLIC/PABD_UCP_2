@@ -13,12 +13,13 @@ namespace projectsem4
 {
     public partial class KelolaJadwal: Form
     {
-
-        private string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
+        private Koneksi koneksi = new Koneksi();
+        private string connectionString;
 
         public KelolaJadwal()
         {
             InitializeComponent();
+            connectionString = koneksi.GetConnectionString();
             Load += Kelola_Data_Jadwal_Load;
         }
 
@@ -94,47 +95,72 @@ namespace projectsem4
 
         private bool ValidateInputJadwal()
         {
-            StringBuilder errorMessages = new StringBuilder();
+            StringBuilder errors = new StringBuilder();
 
-            // Validasi ID Jadwal
+            // 1. Validasi ID Jadwal (sesuai dengan 'J[0-9][0-9][0-9][0-9]')
             if (string.IsNullOrWhiteSpace(txtIDjadwal.Text))
-                errorMessages.AppendLine("ID Jadwal tidak boleh kosong.");
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(txtIDjadwal.Text, @"^[A-Za-z0-9]{3,10}$"))
-                errorMessages.AppendLine("ID Jadwal harus berupa kombinasi huruf dan angka, 3-10 karakter.");
+            {
+                errors.AppendLine("• ID Jadwal tidak boleh kosong.");
+            }
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(txtIDjadwal.Text, @"^J\d{4}$"))
+            {
+                errors.AppendLine("• Format ID Jadwal salah. Harus diawali 'J' diikuti 4 angka (contoh: J0001, J1234).");
+            }
 
-            // Validasi Kode MK (pastikan ada yang dipilih)
+            // 2. Validasi Kode Mata Kuliah
             if (cmbMK.SelectedIndex < 0)
-                errorMessages.AppendLine("Mata Kuliah harus dipilih.");
+            {
+                errors.AppendLine("• Anda harus memilih Mata Kuliah.");
+            }
 
-            // Validasi Hari (pastikan ada yang dipilih)
+            // 3. Validasi Hari (ComboBox sudah membatasi pilihan)
             if (cmbHari.SelectedIndex < 0)
-                errorMessages.AppendLine("Hari harus dipilih.");
+            {
+                errors.AppendLine("• Anda harus memilih Hari.");
+            }
 
-            // Validasi Jam Mulai dan Jam Selesai
+            // 4. Validasi Jam Mulai dan Selesai (sesuai dengan CK_Jam_Valid)
             TimeSpan jamMulai = dtpJamMulai.Value.TimeOfDay;
             TimeSpan jamSelesai = dtpJamSelesai.Value.TimeOfDay;
 
-            if (jamMulai == jamSelesai)
-                errorMessages.AppendLine("Jam Mulai dan Jam Selesai tidak boleh sama.");
-            else if (jamSelesai < jamMulai)
-                errorMessages.AppendLine("Jam Selesai harus lebih besar dari Jam Mulai.");
-
-            // Jika ada error, tampilkan pesan
-            if (errorMessages.Length > 0)
+            if (jamSelesai <= jamMulai)
             {
-                MessageBox.Show(errorMessages.ToString(), "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                errors.AppendLine("• Jam Selesai harus lebih lambat dari Jam Mulai.");
+            }
+
+            // Tampilkan semua pesan error jika ada
+            if (errors.Length > 0)
+            {
+                MessageBox.Show("Terjadi kesalahan validasi:\n\n" + errors.ToString(),
+                                "Validasi Gagal",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 return false;
             }
 
             return true;
         }
-
+        private bool IdJadwalExists(string idJadwal)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM JadwalKuliah WHERE id_jadwal = @idJadwal", conn);
+                cmd.Parameters.AddWithValue("@idJadwal", idJadwal);
+                conn.Open();
+                return (int)cmd.ExecuteScalar() > 0;
+            }
+        }
 
         private void btnTambahJadwal(object sender, EventArgs e)
         {
             if (!ValidateInputJadwal())
                 return;
-
+            // --- VALIDASI DATA DUPLIKAT DITAMBAHKAN DI SINI ---
+            if (IdJadwalExists(txtIDjadwal.Text.Trim()))
+            {
+                MessageBox.Show("ID Jadwal " + txtIDjadwal.Text + " sudah digunakan.", "Data Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             DialogResult result = MessageBox.Show("Yakin ingin menambahkan data ini?", "Konfirmasi Tambah", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
@@ -166,7 +192,8 @@ namespace projectsem4
 
         private void btnRefreshJadwal(object sender, EventArgs e)
         {
-            LoadData();
+            LoadData(); 
+            MessageBox.Show("Tampilan data jadwal berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahJadwal(object sender, EventArgs e)

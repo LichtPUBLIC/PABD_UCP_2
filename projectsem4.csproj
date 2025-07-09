@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -106,6 +106,7 @@
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.4.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -128,6 +129,18 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRegistrasi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRegistrasi.Designer.cs">
+      <DependentUpon>FormRegistrasi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormRekapChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRekapChart.Designer.cs">
+      <DependentUpon>FormRekapChart.cs</DependentUpon>
     </Compile>
     <Compile Include="KelolaDataDosen.cs">
       <SubType>Form</SubType>
@@ -153,6 +166,7 @@
     <Compile Include="KelolaMatakuliah.Designer.cs">
       <DependentUpon>KelolaMatakuliah.cs</DependentUpon>
     </Compile>
+    <Compile Include="Koneksi.cs" />
     <Compile Include="LihatRekap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -184,6 +198,12 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormRegistrasi.resx">
+      <DependentUpon>FormRegistrasi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRekapChart.resx">
+      <DependentUpon>FormRekapChart.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="KelolaDataDosen.resx">
       <DependentUpon>KelolaDataDosen.cs</DependentUpon>
     </EmbeddedResource>
@@ -202,7 +222,9 @@
     <EmbeddedResource Include="Presensi.resx">
       <DependentUpon>Presensi.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PresensiReport.rdlc" />
+    <EmbeddedResource Include="PresensiReport.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="PreviewDataMhs.resx">
       <DependentUpon>PreviewDataMhs.cs</DependentUpon>
     </EmbeddedResource>

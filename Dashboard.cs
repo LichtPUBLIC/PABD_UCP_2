@@ -74,5 +74,12 @@ namespace projectsem4
             LihatRekap lihatrekap = new LihatRekap();
             lihatrekap.Show();
         }
+
+        private void btnGrafikRekap_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            FormRekapChart formGrafik = new FormRekapChart();
+            formGrafik.Show();
+        }
     }
 }

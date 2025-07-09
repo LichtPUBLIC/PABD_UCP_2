@@ -14,11 +14,13 @@ namespace projectsem4
 {
     public partial class KelolaMatakuliah: Form
     {
-
-        private string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
+        private Koneksi koneksi = new Koneksi();
+        private string connectionString;
+        
         public KelolaMatakuliah()
         {
             InitializeComponent();
+            connectionString = koneksi.GetConnectionString();
             this.Load += kelola_Data_MataKuliah_Load;
 
         }
@@ -89,9 +91,15 @@ namespace projectsem4
 
             // Validasi kode mata kuliah: tidak kosong, alfanumerik 3-10 karakter
             if (string.IsNullOrWhiteSpace(txtKodemk.Text))
-                errors.AppendLine("Kode Mata Kuliah tidak boleh kosong.");
-            else if (!System.Text.RegularExpressions.Regex.IsMatch(txtKodemk.Text.Trim(), @"^[A-Za-z0-9]{3,10}$"))
-                errors.AppendLine("Kode Mata Kuliah harus berupa kombinasi huruf dan angka, 3-10 karakter.");
+            {
+                errors.AppendLine("• Kode Mata Kuliah tidak boleh kosong.");
+            }
+            // Menggunakan Regex untuk memastikan format 'MK' diikuti 3 digit angka
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(txtKodemk.Text, @"^MK\d{3}$"))
+            {
+                // Pesan error spesifik dengan contoh yang jelas
+                errors.AppendLine("• Format Kode MK salah. Harus diawali 'MK' diikuti 3 angka (contoh: MK001, MK102).");
+            }
 
             // Validasi nama mata kuliah: tidak kosong
             if (string.IsNullOrWhiteSpace(txtNamamk.Text))
@@ -109,13 +117,28 @@ namespace projectsem4
 
             return true;
         }
+        private bool KodeMkExists(string kodeMk)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM MataKuliah WHERE kode_mk = @kodeMk", conn);
+                cmd.Parameters.AddWithValue("@kodeMk", kodeMk);
+                conn.Open();
+                return (int)cmd.ExecuteScalar() > 0;
+            }
+        }
 
 
         private void btnTambahMK(object sender, EventArgs e)
         {
             if (!ValidateInputMatakuliah())
                 return;
-
+            // --- VALIDASI DATA DUPLIKAT DITAMBAHKAN DI SINI ---
+            if (KodeMkExists(txtKodemk.Text.Trim()))
+            {
+                MessageBox.Show("Kode MK " + txtKodemk.Text + " sudah digunakan.", "Data Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             if (txtKodemk.Text == "" || txtNamamk.Text == "" || comboBoxDosen.Text == "")
             {
                 MessageBox.Show("Harap isi semua data!");
@@ -153,7 +176,8 @@ namespace projectsem4
 
         private void btnRefreshMK(object sender, EventArgs e)
         {
-            LoadData();
+            LoadData(); 
+            MessageBox.Show("Tampilan data mata kuliah berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahMK(object sender, EventArgs e)

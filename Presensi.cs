@@ -14,12 +14,14 @@ namespace projectsem4
     public partial class Presensi: Form
     {
 
-        private string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
+        private Koneksi koneksi = new Koneksi();
+        private string connectionString;
         private string selectedPresensiID = "";
 
         public Presensi()
         {
             InitializeComponent();
+            connectionString = koneksi.GetConnectionString();
             Load += Kelola_Data_Presensi_Load;
         }
 
@@ -33,7 +35,38 @@ namespace projectsem4
             LoadComboBoxJadwal();      
             LoadData();
         }
+        private bool ValidateInputPresensi()
+        {
+            StringBuilder errorMessages = new StringBuilder();
 
+            if (cmbIDjadwal.SelectedItem == null)
+            {
+                errorMessages.AppendLine("• Anda harus memilih ID Jadwal.");
+            }
+
+            // Validasi untuk ComboBox NIM
+            if (cmbNIM.SelectedItem == null || string.IsNullOrWhiteSpace(cmbNIM.Text))
+            {
+                errorMessages.AppendLine("• Anda harus memilih atau mengisi NIM Mahasiswa.");
+            }
+
+            // --- VALIDASI STATUS YANG KOSONG ---
+            if (cmbStatus.SelectedItem == null)
+            {
+                errorMessages.AppendLine("• Anda harus memilih Status Kehadiran.");
+            }
+
+            if (errorMessages.Length > 0)
+            {
+                MessageBox.Show("Terjadi kesalahan validasi:\n\n" + errorMessages.ToString(),
+                                "Validasi Gagal",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
         private void LoadComboBoxMahasiswa()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -136,6 +169,10 @@ namespace projectsem4
 
         private void btnTambahPresensi(object sender, EventArgs e)
         {
+            if (!ValidateInputPresensi())
+            {
+                return; // Hentikan proses jika validasi gagal
+            }
             DialogResult confirm = MessageBox.Show("Yakin ingin menambahkan data presensi?", "Konfirmasi Tambah", MessageBoxButtons.YesNo);
             if (confirm != DialogResult.Yes)
                 return;
@@ -175,8 +212,9 @@ namespace projectsem4
         }
 
         private void btnRefreshPresensi(object sender, EventArgs e)
-        {
+        { 
             LoadData();
+            MessageBox.Show("Tampilan data presensi berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahPresensi(object sender, EventArgs e)

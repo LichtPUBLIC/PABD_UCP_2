@@ -14,11 +14,13 @@ namespace projectsem4
 
     public partial class Login: Form
     {
-
-        private string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
+        private Koneksi koneksi = new Koneksi();
+        private string connectionString;
+        
         public Login()
         {
             InitializeComponent();
+            connectionString = koneksi.GetConnectionString();
         }
 
         private void btnLogin(object sender, EventArgs e)
@@ -61,6 +63,21 @@ namespace projectsem4
                     MessageBox.Show("Error saat login: " + ex.Message);
                 }
             }
+        }
+
+        private void linkRegistrasi_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Membuat instance form registrasi
+            FormRegistrasi formRegistrasi = new FormRegistrasi();
+
+            // Menyembunyikan form login sementara
+            this.Hide();
+
+            // Menampilkan form registrasi
+            formRegistrasi.ShowDialog(); // Gunakan ShowDialog agar form login menunggu
+
+            // Setelah form registrasi ditutup, tampilkan kembali form login
+            this.Show();
         }
     }
 }

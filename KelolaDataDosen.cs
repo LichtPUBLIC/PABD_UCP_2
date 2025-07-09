@@ -14,12 +14,13 @@ namespace projectsem4
 {
     public partial class KelolaDataDosen: Form
     {
-
-        private string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
+        private Koneksi koneksi = new Koneksi();
+        private string connectionString;
 
         public KelolaDataDosen()
         {
             InitializeComponent();
+            connectionString = koneksi.GetConnectionString();
             this.Load += KelolaDataDosenLoad;
         }
 
@@ -95,11 +96,43 @@ namespace projectsem4
             return true;
         }
 
+        private bool IdDosenExists(string idDosen)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Dosen WHERE id_dosen = @idDosen", conn);
+                cmd.Parameters.AddWithValue("@idDosen", idDosen);
+                conn.Open();
+                return (int)cmd.ExecuteScalar() > 0;
+            }
+        }
+
+        private bool EmailExists(string email)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Dosen WHERE emailkampus = @email", conn);
+                cmd.Parameters.AddWithValue("@email", email);
+                conn.Open();
+                return (int)cmd.ExecuteScalar() > 0;
+            }
+        }
+
 
         private void btnTambahDosen(object sender, EventArgs e)
         {
             if (!ValidateInputDosen()) return;
-
+            // --- VALIDASI DATA DUPLIKAT DITAMBAHKAN DI SINI ---
+            if (IdDosenExists(txtIDdosen.Text.Trim()))
+            {
+                MessageBox.Show("ID Dosen " + txtIDdosen.Text + " sudah digunakan.", "Data Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            if (EmailExists(txtEmail.Text.Trim()))
+            {
+                MessageBox.Show("Email " + txtEmail.Text + " sudah digunakan.", "Data Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             DialogResult result = MessageBox.Show("Yakin ingin menambahkan data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
@@ -137,6 +170,7 @@ namespace projectsem4
         private void btnRefreshDosen(object sender, EventArgs e)
         {
             LoadData();
+            MessageBox.Show("Tampilan data dosen berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnEditdosen(object sender, EventArgs e)

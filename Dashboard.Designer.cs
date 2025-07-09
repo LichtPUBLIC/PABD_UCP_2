@@ -36,6 +36,7 @@
             this.button6 = new System.Windows.Forms.Button();
             this.btnRecap = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnGrafikRekap = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button1
@@ -101,7 +102,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.SystemColors.Info;
-            this.button6.Location = new System.Drawing.Point(162, 393);
+            this.button6.Location = new System.Drawing.Point(162, 442);
             this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(161, 45);
@@ -132,11 +133,24 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "PILIH KATEGORI";
             // 
+            // btnGrafikRekap
+            // 
+            this.btnGrafikRekap.BackColor = System.Drawing.SystemColors.Info;
+            this.btnGrafikRekap.Location = new System.Drawing.Point(162, 393);
+            this.btnGrafikRekap.Margin = new System.Windows.Forms.Padding(2);
+            this.btnGrafikRekap.Name = "btnGrafikRekap";
+            this.btnGrafikRekap.Size = new System.Drawing.Size(161, 45);
+            this.btnGrafikRekap.TabIndex = 11;
+            this.btnGrafikRekap.Text = "Grafik Rekap Presensi";
+            this.btnGrafikRekap.UseVisualStyleBackColor = false;
+            this.btnGrafikRekap.Click += new System.EventHandler(this.btnGrafikRekap_Click);
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 467);
+            this.ClientSize = new System.Drawing.Size(494, 520);
+            this.Controls.Add(this.btnGrafikRekap);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnRecap);
             this.Controls.Add(this.button6);
@@ -165,5 +179,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btnRecap;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnGrafikRekap;
     }
 }

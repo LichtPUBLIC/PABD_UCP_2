@@ -18,9 +18,8 @@ namespace projectsem4
 {
     public partial class KelolaMahasiswacs : Form
     {
-
-        private readonly string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
-
+        private Koneksi koneksi = new Koneksi();
+        private string connectionString;
         private readonly MemoryCache _cache = MemoryCache.Default;
         private readonly CacheItemPolicy _policy = new CacheItemPolicy 
         { 
@@ -30,13 +29,14 @@ namespace projectsem4
         public KelolaMahasiswacs()
         {
             InitializeComponent();
+            connectionString = koneksi.GetConnectionString();
             this.Load += KelolaMahasiswacs_Load;
         }
 
         private void KelolaMahasiswacs_Load(object sender, EventArgs e)
         {
             EnsureIndexes();
-            LoadData();
+            
         }
 
         private void ClearForm()
@@ -102,17 +102,66 @@ namespace projectsem4
         {
             using (var conn = new SqlConnection(connectionString))
             {
-                conn.InfoMessage += (s, e) => MessageBox.Show(e.Message, "STATISTICS INFO");
+                // Menggunakan StringBuilder untuk mengumpulkan semua pesan dari event InfoMessage.
+                StringBuilder allMessages = new StringBuilder();
+                conn.InfoMessage += (s, e) => {
+                    allMessages.AppendLine(e.Message);
+                };
+
                 conn.Open();
                 var wrapped = $@"
-            SET STATISTICS IO ON;
-            SET STATISTICS TIME ON;
-            {sqlQuery};
-            SET STATISTICS IO OFF;
-            SET STATISTICS TIME OFF;";
+                SET STATISTICS IO ON;
+                SET STATISTICS TIME ON;
+                {sqlQuery};
+                SET STATISTICS IO OFF;
+                SET STATISTICS TIME OFF;";
+
                 using (var cmd = new SqlCommand(wrapped, conn))
                 {
                     cmd.ExecuteNonQuery();
+                }
+
+                // Setelah perintah dieksekusi, proses pesan yang terkumpul.
+                if (allMessages.Length > 0)
+                {
+                    string rawMessage = allMessages.ToString();
+                    string logicalReads = "N/A";
+                    string elapsedTime = "N/A";
+
+                    // Membagi pesan menjadi baris-baris terpisah untuk diproses.
+                    var lines = rawMessage.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                    // Mencari baris yang berisi "logical reads".
+                    var ioLine = lines.FirstOrDefault(line => line.Contains("logical reads"));
+                    if (ioLine != null)
+                    {
+                        // Mengambil angka dari string "logical reads 9".
+                        var match = System.Text.RegularExpressions.Regex.Match(ioLine, @"logical reads (\d+)");
+                        if (match.Success)
+                        {
+                            logicalReads = match.Groups[1].Value;
+                        }
+                    }
+
+                    // Mencari baris yang berisi "elapsed time".
+                    var timeLine = lines.FirstOrDefault(line => line.Contains("elapsed time"));
+                    if (timeLine != null)
+                    {
+                        // Mengambil angka dari string "  elapsed time = 0 ms.".
+                        var match = System.Text.RegularExpressions.Regex.Match(timeLine, @"elapsed time = (\d+)");
+                        if (match.Success)
+                        {
+                            elapsedTime = $"{match.Groups[1].Value} milidetik";
+                        }
+                    }
+
+                    // Membuat pesan yang ramah pengguna.
+                    string friendlyMessage = "Hasil Analisis Performa Query:\n\n" +
+                                             $"• Efisiensi Baca Data (Logical Reads): {logicalReads}\n" +
+                                             $"• Waktu Eksekusi: {elapsedTime}\n\n" +
+                                             "(Semakin kecil angkanya, semakin cepat dan efisien prosesnya)";
+
+                    MessageBox.Show(friendlyMessage, "Info Performa Query", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }
@@ -121,44 +170,95 @@ namespace projectsem4
         {
             StringBuilder errorMessages = new StringBuilder();
 
+            // Validasi NIM
             if (string.IsNullOrWhiteSpace(txtNIM.Text))
-                errorMessages.AppendLine("NIM tidak boleh kosong.");
+                errorMessages.AppendLine("• NIM tidak boleh kosong.");
             else if (!txtNIM.Text.All(char.IsDigit))
-                errorMessages.AppendLine("NIM hanya boleh terdiri dari angka.");
+                errorMessages.AppendLine("• NIM hanya boleh terdiri dari angka.");
             else if (txtNIM.Text.Length != 11)
-                errorMessages.AppendLine("NIM harus terdiri dari 11 digit.");
+                errorMessages.AppendLine("• NIM harus terdiri dari 11 digit.");
 
-
+            // Validasi Nama Mahasiswa
             if (string.IsNullOrWhiteSpace(txtNamamhs.Text))
-                errorMessages.AppendLine("Nama mahasiswa tidak boleh kosong.");
+                errorMessages.AppendLine("• Nama mahasiswa tidak boleh kosong.");
             else if (!txtNamamhs.Text.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
-                errorMessages.AppendLine("Nama hanya boleh mengandung huruf dan spasi.");
+                errorMessages.AppendLine("• Nama hanya boleh mengandung huruf dan spasi.");
 
+            // Validasi Kelas
             if (string.IsNullOrWhiteSpace(txtKelas.Text))
-                errorMessages.AppendLine("Kelas tidak boleh kosong.");
+                errorMessages.AppendLine("• Kelas tidak boleh kosong.");
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(txtKelas.Text, @"^[A-Z]$"))
+                errorMessages.AppendLine("• Kelas hanya boleh diisi dengan satu huruf kapital (A, B, C, dst.).");
 
-            if (!int.TryParse(txtAngkatan.Text, out int angkatan))
-                errorMessages.AppendLine("Angkatan harus berupa angka.");
-            else if (angkatan < 2000 || angkatan > DateTime.Now.Year)
-                errorMessages.AppendLine("Angkatan harus 4 karakter.");
+            // --- PERUBAHAN VALIDASI ANGKATAN DIMULAI DI SINI ---
+            if (string.IsNullOrWhiteSpace(txtAngkatan.Text))
+            {
+                errorMessages.AppendLine("• Angkatan tidak boleh kosong.");
+            }
+            else if (!int.TryParse(txtAngkatan.Text, out int angkatan))
+            {
+                errorMessages.AppendLine("• Angkatan harus berupa angka.");
+            }
+            else if (txtAngkatan.Text.Length != 4)
+            {
+                errorMessages.AppendLine("• Angkatan harus 4 karakter (contoh: 2023).");
+            }
+            // --- AKHIR VALIDASI ANGKATAN ---
 
-            if (!int.TryParse(txtSemester.Text, out int semester))
-                errorMessages.AppendLine("Semester harus berupa angka.");
+            // --- PERUBAHAN VALIDASI SEMESTER DIMULAI DI SINI ---
+            if (string.IsNullOrWhiteSpace(txtSemester.Text))
+            {
+                errorMessages.AppendLine("• Semester tidak boleh kosong.");
+            }
+            else if (!int.TryParse(txtSemester.Text, out int semester))
+            {
+                errorMessages.AppendLine("• Semester harus berupa angka.");
+            }
             else if (semester < 1 || semester > 14)
-                errorMessages.AppendLine("Semester harus antara 1 sampai 14.");
+            {
+                errorMessages.AppendLine("• Semester harus antara 1 sampai 14.");
+            }
+            // --- AKHIR VALIDASI SEMESTER ---
 
+            // Tampilkan semua pesan error jika ada
             if (errorMessages.Length > 0)
             {
-                MessageBox.Show(errorMessages.ToString(), "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Terjadi kesalahan validasi:\n\n" + errorMessages.ToString(),
+                                "Validasi Gagal",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 return false;
             }
 
             return true;
         }
 
+        private bool NimExists(string nim)
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                // Query untuk menghitung jumlah baris dengan NIM yang sama
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Mahasiswa WHERE nim = @nim", conn);
+                cmd.Parameters.AddWithValue("@nim", nim);
+
+                conn.Open();
+                int count = (int)cmd.ExecuteScalar();
+
+                // Jika count > 0, berarti NIM sudah ada
+                return count > 0;
+            }
+        }
+
         private void btnTambahMhs(object sender, EventArgs e)
         {
             if (!ValidateInput()) return;
+            if (NimExists(txtNIM.Text.Trim()))
+            {
+                MessageBox.Show("NIM " + txtNIM.Text + " sudah terdaftar. Silakan gunakan NIM lain.",
+                                "Data Duplikat", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Hentikan proses jika NIM sudah ada
+            }
+            // --- AKHIR DARI VALIDASI DATA DUPLIKAT ---
 
             DialogResult result = MessageBox.Show("Apakah Anda yakin ingin menambahkan data ini?", "Konfirmasi Tambah", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No) return;
@@ -195,6 +295,7 @@ namespace projectsem4
         {
             _cache.Remove(CacheKey);
             LoadData();
+            MessageBox.Show("Tampilan data mahasiswa berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahMhs(object sender, EventArgs e)
