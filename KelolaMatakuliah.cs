@@ -176,8 +176,13 @@ namespace projectsem4
 
         private void btnRefreshMK(object sender, EventArgs e)
         {
-            LoadData(); 
-            MessageBox.Show("Tampilan data mata kuliah berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            LoadData();
+
+            stopwatch.Stop();
+            MessageBox.Show($"Tampilan data mata kuliah berhasil diperbarui dalam {stopwatch.ElapsedMilliseconds} milidetik.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahMK(object sender, EventArgs e)

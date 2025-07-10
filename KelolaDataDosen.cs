@@ -170,8 +170,13 @@ namespace projectsem4
 
         private void btnRefreshDosen(object sender, EventArgs e)
         {
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
             LoadData();
-            MessageBox.Show("Tampilan data dosen berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            stopwatch.Stop();
+            MessageBox.Show($"Tampilan data dosen berhasil diperbarui dalam {stopwatch.ElapsedMilliseconds} milidetik.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnEditdosen(object sender, EventArgs e)

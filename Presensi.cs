@@ -234,9 +234,14 @@ namespace projectsem4
         }
 
         private void btnRefreshPresensi(object sender, EventArgs e)
-        { 
+        {
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
             LoadData();
-            MessageBox.Show("Tampilan data presensi berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            stopwatch.Stop();
+            MessageBox.Show($"Tampilan data presensi berhasil diperbarui dalam {stopwatch.ElapsedMilliseconds} milidetik.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahPresensi(object sender, EventArgs e)

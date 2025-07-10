@@ -192,8 +192,13 @@ namespace projectsem4
 
         private void btnRefreshJadwal(object sender, EventArgs e)
         {
-            LoadData(); 
-            MessageBox.Show("Tampilan data jadwal berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            LoadData();
+
+            stopwatch.Stop();
+            MessageBox.Show($"Tampilan data jadwal berhasil diperbarui dalam {stopwatch.ElapsedMilliseconds} milidetik.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnUbahJadwal(object sender, EventArgs e)
