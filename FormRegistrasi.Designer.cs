@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.linkKembali = new System.Windows.Forms.LinkLabel();
             this.txtNamaDosen = new System.Windows.Forms.TextBox();
+            this.btnDaftar = new System.Windows.Forms.Button();
             this.IDdosen = new System.Windows.Forms.Label();
             this.txtIdDosen = new System.Windows.Forms.TextBox();
             this.Namadosen = new System.Windows.Forms.Label();
@@ -37,8 +39,6 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.Email = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
-            this.btnDaftar = new System.Windows.Forms.Button();
-            this.linkKembali = new System.Windows.Forms.LinkLabel();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,8 +47,8 @@
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.92401F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 75.07599F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.6776F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.3224F));
             this.tableLayoutPanel1.Controls.Add(this.linkKembali, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.txtNamaDosen, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.btnDaftar, 1, 4);
@@ -72,15 +72,40 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(366, 216);
             this.tableLayoutPanel1.TabIndex = 9;
             // 
+            // linkKembali
+            // 
+            this.linkKembali.AutoSize = true;
+            this.linkKembali.Location = new System.Drawing.Point(86, 193);
+            this.linkKembali.Name = "linkKembali";
+            this.linkKembali.Size = new System.Drawing.Size(88, 13);
+            this.linkKembali.TabIndex = 15;
+            this.linkKembali.TabStop = true;
+            this.linkKembali.Text = "Kembali ke Login";
+            this.linkKembali.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkKembali_LinkClicked);
+            // 
             // txtNamaDosen
             // 
             this.txtNamaDosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNamaDosen.Location = new System.Drawing.Point(93, 36);
+            this.txtNamaDosen.Location = new System.Drawing.Point(85, 36);
             this.txtNamaDosen.Margin = new System.Windows.Forms.Padding(2);
             this.txtNamaDosen.Name = "txtNamaDosen";
-            this.txtNamaDosen.Size = new System.Drawing.Size(271, 20);
+            this.txtNamaDosen.Size = new System.Drawing.Size(279, 20);
             this.txtNamaDosen.TabIndex = 7;
+            // 
+            // btnDaftar
+            // 
+            this.btnDaftar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDaftar.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnDaftar.Location = new System.Drawing.Point(85, 145);
+            this.btnDaftar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnDaftar.Name = "btnDaftar";
+            this.btnDaftar.Size = new System.Drawing.Size(279, 45);
+            this.btnDaftar.TabIndex = 14;
+            this.btnDaftar.Text = "Daftar";
+            this.btnDaftar.UseVisualStyleBackColor = false;
+            this.btnDaftar.Click += new System.EventHandler(this.btnDaftar_Click);
             // 
             // IDdosen
             // 
@@ -96,10 +121,10 @@
             // 
             this.txtIdDosen.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtIdDosen.Location = new System.Drawing.Point(93, 2);
+            this.txtIdDosen.Location = new System.Drawing.Point(85, 2);
             this.txtIdDosen.Margin = new System.Windows.Forms.Padding(2);
             this.txtIdDosen.Name = "txtIdDosen";
-            this.txtIdDosen.Size = new System.Drawing.Size(271, 20);
+            this.txtIdDosen.Size = new System.Drawing.Size(279, 20);
             this.txtIdDosen.TabIndex = 4;
             // 
             // Namadosen
@@ -126,10 +151,10 @@
             // 
             this.txtEmail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEmail.Location = new System.Drawing.Point(93, 71);
+            this.txtEmail.Location = new System.Drawing.Point(85, 71);
             this.txtEmail.Margin = new System.Windows.Forms.Padding(2);
             this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(271, 20);
+            this.txtEmail.Size = new System.Drawing.Size(279, 20);
             this.txtEmail.TabIndex = 5;
             // 
             // Email
@@ -146,37 +171,12 @@
             // 
             this.txtPassword.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPassword.Location = new System.Drawing.Point(93, 106);
+            this.txtPassword.Location = new System.Drawing.Point(85, 106);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(2);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(271, 20);
+            this.txtPassword.Size = new System.Drawing.Size(279, 20);
             this.txtPassword.TabIndex = 6;
             this.txtPassword.UseSystemPasswordChar = true;
-            // 
-            // btnDaftar
-            // 
-            this.btnDaftar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDaftar.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.btnDaftar.Location = new System.Drawing.Point(93, 145);
-            this.btnDaftar.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDaftar.Name = "btnDaftar";
-            this.btnDaftar.Size = new System.Drawing.Size(271, 45);
-            this.btnDaftar.TabIndex = 14;
-            this.btnDaftar.Text = "Daftar";
-            this.btnDaftar.UseVisualStyleBackColor = false;
-            this.btnDaftar.Click += new System.EventHandler(this.btnDaftar_Click);
-            // 
-            // linkKembali
-            // 
-            this.linkKembali.AutoSize = true;
-            this.linkKembali.Location = new System.Drawing.Point(94, 193);
-            this.linkKembali.Name = "linkKembali";
-            this.linkKembali.Size = new System.Drawing.Size(88, 13);
-            this.linkKembali.TabIndex = 15;
-            this.linkKembali.TabStop = true;
-            this.linkKembali.Text = "Kembali ke Login";
-            this.linkKembali.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkKembali_LinkClicked);
             // 
             // FormRegistrasi
             // 

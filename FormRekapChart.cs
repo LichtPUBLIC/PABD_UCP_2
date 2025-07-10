@@ -64,6 +64,7 @@ namespace projectsem4
             }
 
             string kodeMK = cbMataKuliah.SelectedValue.ToString();
+            string namaMK = cbMataKuliah.Text;
             DateTime tanggalMulai = dtpMulai.Value.Date;
             DateTime tanggalSelesai = dtpSelesai.Value.Date;
 
@@ -90,6 +91,15 @@ namespace projectsem4
 
                     conn.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
+
+                    // Cek apakah ada data yang dikembalikan oleh query
+                    if (!reader.HasRows)
+                    {
+                        MessageBox.Show($"Tidak ada data presensi untuk mata kuliah '{namaMK}' \n" +
+                                        $"dari tanggal {tanggalMulai:dd MMMM yyyy} sampai {tanggalSelesai:dd MMMM yyyy}.",
+                                        "Informasi", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return; // Hentikan eksekusi metode jika tidak ada data
+                    }
 
                     // Mengisi data dari hasil query ke dalam chart
                     while (reader.Read())

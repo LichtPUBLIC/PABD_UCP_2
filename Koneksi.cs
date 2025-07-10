@@ -14,12 +14,15 @@ namespace projectsem4
         {
             try
             {
-                // Kembali menggunakan Integrated Security (Windows Authentication)
-                // Tidak perlu User ID dan Password
-                string connectStr = "Server=MSI\\DAFFAALYANDRA; Initial Catalog=PresensiMahasiswaProdiTI;" +
-                                    "Integrated Security=True; TrustServerCertificate=True";
+                string localIP = GetLocalIPAddress();
 
+                // Membangun connection string menggunakan IP lokal
+                // Pastikan 'PresensiMahasiswaProdiTI' adalah nama database Anda yang benar
+                string connectStr = $"Server={localIP}; Initial Catalog=PresensiMahasiswaProdiTI;" +
+                                    $"Integrated Security=True;";
                 return connectStr;
+
+
             }
             catch (Exception ex)
             {

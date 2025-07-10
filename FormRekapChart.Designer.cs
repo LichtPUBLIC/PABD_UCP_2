@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.cbMataKuliah = new System.Windows.Forms.ComboBox();
             this.dtpMulai = new System.Windows.Forms.DateTimePicker();
             this.dtpSelesai = new System.Windows.Forms.DateTimePicker();
@@ -38,53 +38,56 @@
             this.chartRekap = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.btnKembali = new System.Windows.Forms.Button();
             this.IDdosen = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chartRekap)).BeginInit();
             this.SuspendLayout();
             // 
             // cbMataKuliah
             // 
             this.cbMataKuliah.FormattingEnabled = true;
-            this.cbMataKuliah.Location = new System.Drawing.Point(291, 29);
+            this.cbMataKuliah.Location = new System.Drawing.Point(341, 34);
             this.cbMataKuliah.Name = "cbMataKuliah";
-            this.cbMataKuliah.Size = new System.Drawing.Size(234, 21);
+            this.cbMataKuliah.Size = new System.Drawing.Size(200, 21);
             this.cbMataKuliah.TabIndex = 0;
             // 
             // dtpMulai
             // 
-            this.dtpMulai.Location = new System.Drawing.Point(291, 77);
+            this.dtpMulai.Location = new System.Drawing.Point(341, 82);
             this.dtpMulai.Name = "dtpMulai";
             this.dtpMulai.Size = new System.Drawing.Size(200, 20);
             this.dtpMulai.TabIndex = 1;
             // 
             // dtpSelesai
             // 
-            this.dtpSelesai.Location = new System.Drawing.Point(291, 118);
+            this.dtpSelesai.Location = new System.Drawing.Point(341, 123);
             this.dtpSelesai.Name = "dtpSelesai";
             this.dtpSelesai.Size = new System.Drawing.Size(200, 20);
             this.dtpSelesai.TabIndex = 2;
             // 
             // btnTampilkan
             // 
-            this.btnTampilkan.Location = new System.Drawing.Point(619, 100);
+            this.btnTampilkan.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.btnTampilkan.Location = new System.Drawing.Point(626, 112);
             this.btnTampilkan.Name = "btnTampilkan";
-            this.btnTampilkan.Size = new System.Drawing.Size(89, 38);
+            this.btnTampilkan.Size = new System.Drawing.Size(122, 46);
             this.btnTampilkan.TabIndex = 3;
             this.btnTampilkan.Text = "Tampilkan Grafik";
-            this.btnTampilkan.UseVisualStyleBackColor = true;
+            this.btnTampilkan.UseVisualStyleBackColor = false;
             this.btnTampilkan.Click += new System.EventHandler(this.btnTampilkan_Click_1);
             // 
             // chartRekap
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chartRekap.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chartRekap.Legends.Add(legend3);
+            chartArea4.Name = "ChartArea1";
+            this.chartRekap.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartRekap.Legends.Add(legend4);
             this.chartRekap.Location = new System.Drawing.Point(128, 187);
             this.chartRekap.Name = "chartRekap";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartRekap.Series.Add(series3);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartRekap.Series.Add(series4);
             this.chartRekap.Size = new System.Drawing.Size(636, 344);
             this.chartRekap.TabIndex = 4;
             this.chartRekap.Text = "chart1";
@@ -92,29 +95,49 @@
             // 
             // btnKembali
             // 
-            this.btnKembali.Location = new System.Drawing.Point(718, 537);
+            this.btnKembali.Location = new System.Drawing.Point(689, 550);
             this.btnKembali.Name = "btnKembali";
             this.btnKembali.Size = new System.Drawing.Size(75, 23);
             this.btnKembali.TabIndex = 5;
-            this.btnKembali.Text = "Kemabali";
+            this.btnKembali.Text = "Kembali";
             this.btnKembali.UseVisualStyleBackColor = true;
             this.btnKembali.Click += new System.EventHandler(this.btnKembali_Click_1);
             // 
             // IDdosen
             // 
             this.IDdosen.AutoSize = true;
-            this.IDdosen.Location = new System.Drawing.Point(181, 32);
+            this.IDdosen.Location = new System.Drawing.Point(231, 37);
             this.IDdosen.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.IDdosen.Name = "IDdosen";
             this.IDdosen.Size = new System.Drawing.Size(100, 13);
             this.IDdosen.TabIndex = 6;
             this.IDdosen.Text = "Nama Mata Kuliah :";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(257, 88);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Dari Tanggal :";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(244, 130);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(87, 13);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "Sampai dengan :";
+            // 
             // FormRekapChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(889, 595);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.IDdosen);
             this.Controls.Add(this.btnKembali);
             this.Controls.Add(this.chartRekap);
@@ -141,5 +164,7 @@
         private System.Windows.Forms.DataVisualization.Charting.Chart chartRekap;
         private System.Windows.Forms.Button btnKembali;
         private System.Windows.Forms.Label IDdosen;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }
