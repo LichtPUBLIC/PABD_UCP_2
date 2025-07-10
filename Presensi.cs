@@ -14,14 +14,14 @@ namespace projectsem4
     public partial class Presensi: Form
     {
 
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
+        Koneksi kn = new Koneksi();
+        string connect = "";
         private string selectedPresensiID = "";
 
         public Presensi()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
             Load += Kelola_Data_Presensi_Load;
         }
 
@@ -69,7 +69,7 @@ namespace projectsem4
         }
         private void LoadComboBoxMahasiswa()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -97,7 +97,7 @@ namespace projectsem4
 
         private void LoadComboBoxJadwal()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -125,7 +125,7 @@ namespace projectsem4
 
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -177,7 +177,7 @@ namespace projectsem4
             if (confirm != DialogResult.Yes)
                 return;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 SqlTransaction transaction = null;
 
@@ -230,7 +230,7 @@ namespace projectsem4
             if (confirm != DialogResult.Yes)
                 return;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -268,7 +268,7 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin menghapus data ini?", "Konfirmasi Hapus", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     try
                     {

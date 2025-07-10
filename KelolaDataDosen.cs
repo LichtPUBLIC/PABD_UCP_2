@@ -14,13 +14,13 @@ namespace projectsem4
 {
     public partial class KelolaDataDosen: Form
     {
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
+        Koneksi kn = new Koneksi();
+        string connect = "";
 
         public KelolaDataDosen()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
             this.Load += KelolaDataDosenLoad;
         }
 
@@ -40,7 +40,7 @@ namespace projectsem4
 
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -98,7 +98,7 @@ namespace projectsem4
 
         private bool IdDosenExists(string idDosen)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Dosen WHERE id_dosen = @idDosen", conn);
                 cmd.Parameters.AddWithValue("@idDosen", idDosen);
@@ -109,7 +109,7 @@ namespace projectsem4
 
         private bool EmailExists(string email)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Dosen WHERE emailkampus = @email", conn);
                 cmd.Parameters.AddWithValue("@email", email);
@@ -136,7 +136,7 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin menambahkan data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     try
                     {
@@ -181,7 +181,7 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin memperbarui data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     try
                     {
@@ -230,7 +230,7 @@ namespace projectsem4
 
             string idDosen = dgvDosen.SelectedRows[0].Cells["ID"].Value.ToString();
 
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connect))
             {
                 try
                 {

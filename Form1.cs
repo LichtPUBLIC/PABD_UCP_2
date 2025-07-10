@@ -14,13 +14,12 @@ namespace projectsem4
 
     public partial class Login: Form
     {
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
-        
+        Koneksi kn = new Koneksi();
+        string connect = "";
         public Login()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
         }
 
         private void btnLogin(object sender, EventArgs e)
@@ -34,7 +33,7 @@ namespace projectsem4
                 return;
             }
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {

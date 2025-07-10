@@ -12,13 +12,13 @@ namespace projectsem4
     public partial class FormRekapChart : Form
     {
         // Menggunakan class Koneksi untuk koneksi dinamis
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
+        Koneksi kn = new Koneksi();
+        string connect = "";
 
         public FormRekapChart()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
         }
 
         
@@ -28,7 +28,7 @@ namespace projectsem4
         /// </summary>
         private void LoadComboBoxMataKuliah()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -78,7 +78,7 @@ namespace projectsem4
                 Font = new Font("Segoe UI", 9)
             };
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -140,7 +140,7 @@ namespace projectsem4
             SET STATISTICS IO OFF;
             SET STATISTICS TIME OFF;";
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -201,7 +201,7 @@ namespace projectsem4
         }
         private void EnsurePresensiIndexes()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {

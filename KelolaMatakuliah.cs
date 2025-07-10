@@ -14,13 +14,13 @@ namespace projectsem4
 {
     public partial class KelolaMatakuliah: Form
     {
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
-        
+        Koneksi kn = new Koneksi();
+        string connect = "";
+
         public KelolaMatakuliah()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
             this.Load += kelola_Data_MataKuliah_Load;
 
         }
@@ -42,7 +42,7 @@ namespace projectsem4
 
         private void LoadDosen()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 conn.Open();
                 string query = "SELECT id_dosen, nama_dosen FROM Dosen";
@@ -58,7 +58,7 @@ namespace projectsem4
 
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -119,7 +119,7 @@ namespace projectsem4
         }
         private bool KodeMkExists(string kodeMk)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM MataKuliah WHERE kode_mk = @kodeMk", conn);
                 cmd.Parameters.AddWithValue("@kodeMk", kodeMk);
@@ -148,7 +148,7 @@ namespace projectsem4
             DialogResult confirm = MessageBox.Show("Yakin ingin menambahkan data?", "Konfirmasi", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No) return;
 
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -195,7 +195,7 @@ namespace projectsem4
             DialogResult confirm = MessageBox.Show("Yakin ingin mengubah data ini?", "Konfirmasi", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.No) return;
 
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -237,7 +237,7 @@ namespace projectsem4
 
             string kodeMK = dgvMataKuliah.SelectedRows[0].Cells["Kode MK"].Value.ToString();
 
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connect))
             {
                 try
                 {

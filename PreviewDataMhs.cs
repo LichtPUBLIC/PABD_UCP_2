@@ -14,11 +14,13 @@ namespace projectsem4
 {
     public partial class PreviewDataMhs: Form
     {
-        private string connectionString = "Data Source=MSI\\DAFFAALYANDRA;Initial Catalog=PresensiMahasiswaProdiTI;Integrated Security=True;";
+        Koneksi kn = new Koneksi();
+        string connect = "";
 
         public PreviewDataMhs(DataTable data)
         {
-            InitializeComponent();
+            InitializeComponent(); 
+            connect = kn.connectionString(); 
             dgvPreviewDataMhs.DataSource = data;
         }
 
@@ -53,7 +55,7 @@ namespace projectsem4
                     }
 
                     string query = "INSERT INTO Mahasiswa (nim, nama_mhs, kelas, angkatan, semester) VALUES (@nim, @nama, @kelas, @angkatan, @semester)";
-                    using (SqlConnection conn = new SqlConnection(connectionString))
+                    using (SqlConnection conn = new SqlConnection(connect))
                     {
                         conn.Open();
                         using (SqlCommand cmd = new SqlCommand(query, conn))

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,13 +14,12 @@ namespace projectsem4
 {
     public partial class FormRegistrasi : Form
     {
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
-
+        Koneksi kn = new Koneksi();
+        string connect = "";
         public FormRegistrasi()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
         }
 
         private void btnDaftar_Click(object sender, EventArgs e)
@@ -31,7 +31,7 @@ namespace projectsem4
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     conn.Open();
 

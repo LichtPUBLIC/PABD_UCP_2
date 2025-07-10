@@ -13,13 +13,13 @@ namespace projectsem4
     public partial class LihatRekap : Form
     {
         // --- PERUBAHAN 1: Deklarasikan class Koneksi ---
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
+        Koneksi kn = new Koneksi();
+        string connect = "";
 
         public LihatRekap()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
         }
 
         private void LihatRekap_Load(object sender, EventArgs e)
@@ -39,7 +39,7 @@ namespace projectsem4
         /// </summary>
         private void LoadComboBoxMataKuliah()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -114,7 +114,7 @@ namespace projectsem4
             DataTable dt = new DataTable();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 using (SqlCommand cmd = new SqlCommand(queryBuilder.ToString(), conn))
                 {
                     if (!string.IsNullOrEmpty(selectedMK) && selectedMK != "-- Semua Matkul --")
@@ -238,7 +238,7 @@ namespace projectsem4
 
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     List<string> messageBlocks = new List<string>();
                     StringBuilder currentBlock = new StringBuilder();
@@ -294,7 +294,7 @@ namespace projectsem4
         {
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     conn.Open();
                     string indexScript = @"

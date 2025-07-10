@@ -6,48 +6,24 @@ namespace projectsem4
 {
     internal class Koneksi
     {
-        /// <summary>
-        /// Metode ini membangun dan mengembalikan connection string secara dinamis.
-        /// </summary>
-        /// <returns>String koneksi ke database SQL Server.</returns>
-        public string GetConnectionString()
+        public string connectionString()
         {
             try
             {
-                string localIP = GetLocalIPAddress();
-
-                // Membangun connection string menggunakan IP lokal
-                // Pastikan 'PresensiMahasiswaProdiTI' adalah nama database Anda yang benar
-                string connectStr = $"Server={localIP}; Initial Catalog=PresensiMahasiswaProdiTI;" +
-                                    $"Integrated Security=True;";
+                string serverIP = "192.168.1.7"; // IP kamu
+                string connectStr = $"Server={serverIP},1433;" +
+                                    $"Initial Catalog=PresensiMahasiswaProdiTI;" +
+                                    $"User ID=sa;" +
+                                    $"Password=Polang123;" +
+                                    $"TrustServerCertificate=True;";
                 return connectStr;
-
-
             }
             catch (Exception ex)
             {
-                // Menampilkan error di console jika gagal mendapatkan IP atau membangun string
-                Console.WriteLine("Gagal membuat connection string: " + ex.Message);
+                Console.WriteLine("Koneksi gagal: " + ex.Message);
                 return string.Empty;
             }
         }
 
-        /// <summary>
-        /// Metode statis untuk mendapatkan alamat IPv4 dari mesin lokal.
-        /// </summary>
-        /// <returns>String alamat IP lokal.</returns>
-        public static string GetLocalIPAddress()
-        {
-            var host = Dns.GetHostEntry(Dns.GetHostName());
-            foreach (var ip in host.AddressList)
-            {
-                // Filter untuk hanya mengambil alamat IPv4
-                if (ip.AddressFamily == AddressFamily.InterNetwork)
-                {
-                    return ip.ToString();
-                }
-            }
-            throw new Exception("Tidak ada alamat IP v4 yang ditemukan untuk komputer ini.");
-        }
     }
 }

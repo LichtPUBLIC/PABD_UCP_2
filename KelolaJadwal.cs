@@ -13,13 +13,13 @@ namespace projectsem4
 {
     public partial class KelolaJadwal: Form
     {
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
+        Koneksi kn = new Koneksi();
+        string connect = "";
 
         public KelolaJadwal()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
             Load += Kelola_Data_Jadwal_Load;
         }
 
@@ -35,7 +35,7 @@ namespace projectsem4
 
         private void LoadData()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -55,7 +55,7 @@ namespace projectsem4
 
         private void LoadComboMK()
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {
@@ -142,7 +142,7 @@ namespace projectsem4
         }
         private bool IdJadwalExists(string idJadwal)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM JadwalKuliah WHERE id_jadwal = @idJadwal", conn);
                 cmd.Parameters.AddWithValue("@idJadwal", idJadwal);
@@ -164,7 +164,7 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin menambahkan data ini?", "Konfirmasi Tambah", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     try
                     {
@@ -204,7 +204,7 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin mengubah data ini?", "Konfirmasi Ubah", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
+                using (SqlConnection conn = new SqlConnection(connect))
                 {
                     try
                     {
@@ -248,7 +248,7 @@ namespace projectsem4
 
             string idJadwal = dgvJadwal.SelectedRows[0].Cells["ID Jadwal"].Value.ToString();
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 try
                 {

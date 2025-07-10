@@ -18,8 +18,8 @@ namespace projectsem4
 {
     public partial class KelolaMahasiswacs : Form
     {
-        private Koneksi koneksi = new Koneksi();
-        private string connectionString;
+        Koneksi kn = new Koneksi();
+        string connect = "";
         private readonly MemoryCache _cache = MemoryCache.Default;
         private readonly CacheItemPolicy _policy = new CacheItemPolicy 
         { 
@@ -29,7 +29,7 @@ namespace projectsem4
         public KelolaMahasiswacs()
         {
             InitializeComponent();
-            connectionString = koneksi.GetConnectionString();
+            connect = kn.connectionString();
             this.Load += KelolaMahasiswacs_Load;
         }
 
@@ -52,7 +52,7 @@ namespace projectsem4
 
         private void EnsureIndexes()
         {
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connect))
             {
                 conn.Open();
                 var indexScript = @"
@@ -82,7 +82,7 @@ namespace projectsem4
             else
             {
                 dt = new DataTable();
-                using (var conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connect))
                 {
                     conn.Open();
                     string query = "SELECT nim, nama_mhs, kelas, angkatan, semester FROM dbo.Mahasiswa";
@@ -100,7 +100,7 @@ namespace projectsem4
 
         private void AnalyzeQuery(string sqlQuery)
         {
-            using (var conn = new SqlConnection(connectionString))
+            using (var conn = new SqlConnection(connect))
             {
                 // Menggunakan StringBuilder untuk mengumpulkan semua pesan dari event InfoMessage.
                 StringBuilder allMessages = new StringBuilder();
@@ -235,7 +235,7 @@ namespace projectsem4
 
         private bool NimExists(string nim)
         {
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 // Query untuk menghitung jumlah baris dengan NIM yang sama
                 SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Mahasiswa WHERE nim = @nim", conn);
@@ -265,7 +265,7 @@ namespace projectsem4
 
             try
             {
-                using (var conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connect))
                 {
                     conn.Open();
                     using (var cmd = new SqlCommand("AddMahasiswa", conn))
@@ -308,7 +308,7 @@ namespace projectsem4
 
             try
             {
-                using (var conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(connect))
                 {
                     conn.Open();
                     using (var cmd = new SqlCommand("UpdateMahasiswa", conn))
@@ -348,7 +348,7 @@ namespace projectsem4
             DialogResult result = MessageBox.Show("Yakin ingin menghapus data NIM: " + nim + "?", "Konfirmasi Hapus", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (result == DialogResult.No) return;
 
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlConnection conn = new SqlConnection(connect))
             {
                 SqlTransaction transaction = null;
 
