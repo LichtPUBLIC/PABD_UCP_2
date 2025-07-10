@@ -10,7 +10,7 @@ namespace projectsem4
         {
             try
             {
-                string serverIP = "192.168.1.7"; // IP kamu
+                string serverIP = "192.168.1.56"; // IP kamu
                 string connectStr = $"Server={serverIP},1433;" +
                                     $"Initial Catalog=PresensiMahasiswaProdiTI;" +
                                     $"User ID=sa;" +
