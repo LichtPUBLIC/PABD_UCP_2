@@ -83,8 +83,9 @@ namespace projectsem4
             // Validasi Nama Dosen
             if (string.IsNullOrWhiteSpace(txtNamadosen.Text))
                 errorMessages.AppendLine("Nama dosen tidak boleh kosong.");
-            else if (!txtNamadosen.Text.All(c => char.IsLetter(c) || char.IsWhiteSpace(c)))
-                errorMessages.AppendLine("Nama dosen hanya boleh mengandung huruf dan spasi.");
+            // --- PERUBAHAN VALIDASI NAMA DOSEN ---
+            else if (!System.Text.RegularExpressions.Regex.IsMatch(txtNamadosen.Text, @"^[a-zA-Z.,\s]+$"))
+                errorMessages.AppendLine("Nama dosen hanya boleh mengandung huruf, spasi, titik, dan koma untuk gelar.");
 
             // Tampilkan pesan jika ada error
             if (errorMessages.Length > 0)

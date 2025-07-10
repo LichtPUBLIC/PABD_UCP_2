@@ -152,22 +152,22 @@
             // dgvPresensi
             // 
             this.dgvPresensi.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPresensi.Location = new System.Drawing.Point(21, 178);
+            this.dgvPresensi.Location = new System.Drawing.Point(402, 16);
             this.dgvPresensi.Margin = new System.Windows.Forms.Padding(2);
             this.dgvPresensi.Name = "dgvPresensi";
             this.dgvPresensi.RowHeadersWidth = 62;
             this.dgvPresensi.RowTemplate.Height = 28;
-            this.dgvPresensi.Size = new System.Drawing.Size(566, 167);
+            this.dgvPresensi.Size = new System.Drawing.Size(555, 219);
             this.dgvPresensi.TabIndex = 1;
             this.dgvPresensi.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresensi_CellClick);
             // 
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button1.Location = new System.Drawing.Point(466, 16);
+            this.button1.Location = new System.Drawing.Point(53, 195);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(121, 33);
+            this.button1.Size = new System.Drawing.Size(127, 42);
             this.button1.TabIndex = 2;
             this.button1.Text = "Tambah";
             this.button1.UseVisualStyleBackColor = false;
@@ -176,10 +176,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button2.Location = new System.Drawing.Point(466, 90);
+            this.button2.Location = new System.Drawing.Point(53, 258);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(121, 33);
+            this.button2.Size = new System.Drawing.Size(127, 42);
             this.button2.TabIndex = 3;
             this.button2.Text = "Refresh";
             this.button2.UseVisualStyleBackColor = false;
@@ -188,10 +188,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button3.Location = new System.Drawing.Point(466, 53);
+            this.button3.Location = new System.Drawing.Point(200, 195);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(121, 33);
+            this.button3.Size = new System.Drawing.Size(127, 42);
             this.button3.TabIndex = 4;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = false;
@@ -200,10 +200,10 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button4.Location = new System.Drawing.Point(466, 127);
+            this.button4.Location = new System.Drawing.Point(200, 258);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(121, 33);
+            this.button4.Size = new System.Drawing.Size(127, 42);
             this.button4.TabIndex = 5;
             this.button4.Text = "Hapus";
             this.button4.UseVisualStyleBackColor = false;
@@ -211,10 +211,10 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(466, 383);
+            this.button5.Location = new System.Drawing.Point(862, 281);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(121, 23);
+            this.button5.Size = new System.Drawing.Size(95, 23);
             this.button5.TabIndex = 6;
             this.button5.Text = "Kembali";
             this.button5.UseVisualStyleBackColor = true;
@@ -225,12 +225,12 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.lblMessage, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(21, 349);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(402, 239);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(566, 32);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(555, 32);
             this.tableLayoutPanel2.TabIndex = 7;
             // 
             // lblMessage
@@ -247,7 +247,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 417);
+            this.ClientSize = new System.Drawing.Size(974, 315);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);

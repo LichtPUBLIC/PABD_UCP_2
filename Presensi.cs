@@ -43,14 +43,10 @@ namespace projectsem4
             {
                 errorMessages.AppendLine("• Anda harus memilih ID Jadwal.");
             }
-
-            // Validasi untuk ComboBox NIM
             if (cmbNIM.SelectedItem == null || string.IsNullOrWhiteSpace(cmbNIM.Text))
             {
                 errorMessages.AppendLine("• Anda harus memilih atau mengisi NIM Mahasiswa.");
             }
-
-            // --- VALIDASI STATUS YANG KOSONG ---
             if (cmbStatus.SelectedItem == null)
             {
                 errorMessages.AppendLine("• Anda harus memilih Status Kehadiran.");
@@ -64,9 +60,9 @@ namespace projectsem4
                                 MessageBoxIcon.Warning);
                 return false;
             }
-
             return true;
         }
+
         private void LoadComboBoxMahasiswa()
         {
             using (SqlConnection conn = new SqlConnection(connect))
@@ -167,46 +163,72 @@ namespace projectsem4
 
         }
 
+        private bool PresensiExists(string idJadwal, string nim, DateTime tanggal)
+        {
+            using (SqlConnection conn = new SqlConnection(connect))
+            {
+                // Query sederhana untuk menghitung data yang identik
+                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Presensi WHERE id_jadwal = @id_jadwal AND nim = @nim AND tanggal = @tanggal", conn);
+                cmd.Parameters.AddWithValue("@id_jadwal", idJadwal);
+                cmd.Parameters.AddWithValue("@nim", nim);
+                cmd.Parameters.AddWithValue("@tanggal", tanggal.Date);
+
+                conn.Open();
+                int count = (int)cmd.ExecuteScalar();
+
+                // Jika hasil hitungan lebih dari 0, data sudah ada
+                return count > 0;
+            }
+        }
+
         private void btnTambahPresensi(object sender, EventArgs e)
         {
             if (!ValidateInputPresensi())
             {
-                return; // Hentikan proses jika validasi gagal
+                return;
             }
-            DialogResult confirm = MessageBox.Show("Yakin ingin menambahkan data presensi?", "Konfirmasi Tambah", MessageBoxButtons.YesNo);
+
+            string idJadwal = cmbIDjadwal.Text.Trim();
+            string nim = cmbNIM.Text.Trim();
+            DateTime tanggal = dtpTanggal.Value;
+
+            // Panggil fungsi pengecekan duplikat sebelum melakukan apapun
+            if (PresensiExists(idJadwal, nim, tanggal))
+            {
+                MessageBox.Show($"Mahasiswa dengan NIM {nim} sudah tercatat melakukan presensi pada jadwal ini di tanggal yang sama.",
+                                "Data Duplikat",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                return; // Hentikan proses jika data sudah ada
+            }
+
+            DialogResult confirm = MessageBox.Show("Yakin ingin menambahkan data presensi?", "Konfirmasi Tambah", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes)
                 return;
 
             using (SqlConnection conn = new SqlConnection(connect))
             {
-                SqlTransaction transaction = null;
-
                 try
                 {
                     conn.Open();
-                    transaction = conn.BeginTransaction();
-
-                    SqlCommand cmd = new SqlCommand("PresensiMahasiswa", conn, transaction);
+                    SqlCommand cmd = new SqlCommand("PresensiMahasiswa", conn);
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@id_jadwal", cmbIDjadwal.Text.Trim());
-                    cmd.Parameters.AddWithValue("@nim", cmbNIM.Text.Trim());
-                    cmd.Parameters.AddWithValue("@tanggal", dtpTanggal.Value.Date);
+                    cmd.Parameters.AddWithValue("@id_jadwal", idJadwal);
+                    cmd.Parameters.AddWithValue("@nim", nim);
+                    cmd.Parameters.AddWithValue("@tanggal", tanggal.Date);
                     cmd.Parameters.AddWithValue("@status", cmbStatus.SelectedItem.ToString());
 
                     cmd.ExecuteNonQuery();
 
-                    transaction.Commit();
                     lblMessage.Text = "Data presensi berhasil ditambahkan.";
                     LoadData();
                     ClearForm();
                 }
-                catch (SqlException ex)
+                catch (Exception ex)
                 {
-                    transaction?.Rollback();
-
-                    // Tampilkan pesan error dari RAISERROR jika ada
-                    lblMessage.Text = "Error: " + ex.Message;
+                    // Menangkap error umum lainnya, bukan lagi error duplikat dari SQL
+                    lblMessage.Text = "Terjadi kesalahan saat menyimpan: " + ex.Message;
                 }
             }
         }

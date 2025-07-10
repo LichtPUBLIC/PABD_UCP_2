@@ -60,7 +60,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.txtKodemk, 1, 0);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(13, 13);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 3;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 43.75F));
@@ -73,7 +73,7 @@
             // 
             this.comboBoxDosen.FormattingEnabled = true;
             this.comboBoxDosen.Location = new System.Drawing.Point(107, 77);
-            this.comboBoxDosen.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.comboBoxDosen.Margin = new System.Windows.Forms.Padding(2);
             this.comboBoxDosen.Name = "comboBoxDosen";
             this.comboBoxDosen.Size = new System.Drawing.Size(148, 21);
             this.comboBoxDosen.TabIndex = 9;
@@ -82,7 +82,7 @@
             // txtNamamk
             // 
             this.txtNamamk.Location = new System.Drawing.Point(107, 35);
-            this.txtNamamk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNamamk.Margin = new System.Windows.Forms.Padding(2);
             this.txtNamamk.Name = "txtNamamk";
             this.txtNamamk.Size = new System.Drawing.Size(148, 20);
             this.txtNamamk.TabIndex = 4;
@@ -120,7 +120,7 @@
             // txtKodemk
             // 
             this.txtKodemk.Location = new System.Drawing.Point(107, 2);
-            this.txtKodemk.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtKodemk.Margin = new System.Windows.Forms.Padding(2);
             this.txtKodemk.Name = "txtKodemk";
             this.txtKodemk.Size = new System.Drawing.Size(148, 20);
             this.txtKodemk.TabIndex = 3;
@@ -128,10 +128,10 @@
             // Tambah
             // 
             this.Tambah.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.Tambah.Location = new System.Drawing.Point(402, 13);
-            this.Tambah.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Tambah.Location = new System.Drawing.Point(18, 145);
+            this.Tambah.Margin = new System.Windows.Forms.Padding(2);
             this.Tambah.Name = "Tambah";
-            this.Tambah.Size = new System.Drawing.Size(107, 31);
+            this.Tambah.Size = new System.Drawing.Size(110, 43);
             this.Tambah.TabIndex = 1;
             this.Tambah.Text = "Tambah";
             this.Tambah.UseVisualStyleBackColor = false;
@@ -140,10 +140,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button2.Location = new System.Drawing.Point(402, 83);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Location = new System.Drawing.Point(18, 215);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(107, 31);
+            this.button2.Size = new System.Drawing.Size(110, 43);
             this.button2.TabIndex = 2;
             this.button2.Text = "Refresh";
             this.button2.UseVisualStyleBackColor = false;
@@ -152,10 +152,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button3.Location = new System.Drawing.Point(402, 118);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Location = new System.Drawing.Point(180, 145);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(107, 31);
+            this.button3.Size = new System.Drawing.Size(110, 43);
             this.button3.TabIndex = 3;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = false;
@@ -164,10 +164,10 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button4.Location = new System.Drawing.Point(402, 48);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Location = new System.Drawing.Point(180, 215);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(107, 31);
+            this.button4.Size = new System.Drawing.Size(110, 43);
             this.button4.TabIndex = 4;
             this.button4.Text = "Hapus";
             this.button4.UseVisualStyleBackColor = false;
@@ -176,19 +176,19 @@
             // dgvMataKuliah
             // 
             this.dgvMataKuliah.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvMataKuliah.Location = new System.Drawing.Point(13, 168);
-            this.dgvMataKuliah.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvMataKuliah.Location = new System.Drawing.Point(316, 13);
+            this.dgvMataKuliah.Margin = new System.Windows.Forms.Padding(2);
             this.dgvMataKuliah.Name = "dgvMataKuliah";
             this.dgvMataKuliah.RowHeadersWidth = 62;
             this.dgvMataKuliah.RowTemplate.Height = 28;
-            this.dgvMataKuliah.Size = new System.Drawing.Size(496, 106);
+            this.dgvMataKuliah.Size = new System.Drawing.Size(402, 175);
             this.dgvMataKuliah.TabIndex = 8;
             this.dgvMataKuliah.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvMatakuliah_CellClick);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(444, 314);
-            this.button7.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button7.Location = new System.Drawing.Point(653, 230);
+            this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(65, 28);
             this.button7.TabIndex = 7;
@@ -201,12 +201,12 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.lblMessage, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(13, 278);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(316, 194);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(496, 32);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(402, 32);
             this.tableLayoutPanel2.TabIndex = 9;
             // 
             // lblMessage
@@ -223,7 +223,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 353);
+            this.ClientSize = new System.Drawing.Size(742, 276);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.dgvMataKuliah);
             this.Controls.Add(this.button7);
@@ -232,7 +232,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.Tambah);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "KelolaMatakuliah";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KelolaMatakuliah";

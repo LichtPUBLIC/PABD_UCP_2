@@ -1,4 +1,4 @@
-﻿using NPOI.POIFS.Crypt.Dsig;
+﻿   using NPOI.POIFS.Crypt.Dsig;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,64 +24,124 @@ namespace projectsem4
             dgvPreviewDataMhs.DataSource = data;
         }
 
-        private bool ValidateRow(DataRow row)
+        private bool NimExists(string nim, SqlConnection conn, SqlTransaction transaction)
         {
-            string nim = row["NIM"].ToString();
+            // Query untuk mengecek apakah NIM sudah ada di database
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Mahasiswa WHERE nim = @nim", conn, transaction);
+            cmd.Parameters.AddWithValue("@nim", nim);
 
-            // Validasi NIM (misalnya, harus berjumlah 11 karakter)
-            if (nim.Length != 11)
+            // Mengembalikan true jika jumlahnya > 0 (artinya NIM sudah ada)
+            return (int)cmd.ExecuteScalar() > 0;
+        }
+        // --- GANTI SELURUH FUNGSI INI ---
+        private bool ValidateRow(DataRow row, int rowIndex)
+        {
+            StringBuilder errorMessages = new StringBuilder();
+            string nim = row["nim"]?.ToString() ?? "";
+            string nama = row["nama_mhs"]?.ToString() ?? "";
+            string kelas = row["kelas"]?.ToString() ?? "";
+            string angkatanStr = row["angkatan"]?.ToString() ?? "";
+            string semesterStr = row["semester"]?.ToString() ?? "";
+
+            // Validasi NIM
+            if (string.IsNullOrWhiteSpace(nim) || nim.Length != 11 || !nim.All(char.IsDigit))
+                errorMessages.AppendLine("• NIM tidak valid (harus 11 digit angka).");
+
+            // Validasi lainnya
+            if (string.IsNullOrWhiteSpace(nama))
+                errorMessages.AppendLine("• Nama Mahasiswa tidak boleh kosong.");
+
+            if (string.IsNullOrWhiteSpace(kelas))
+                errorMessages.AppendLine("• Kelas tidak boleh kosong.");
+
+            if (string.IsNullOrWhiteSpace(angkatanStr) || !int.TryParse(angkatanStr, out _) || angkatanStr.Length != 4)
+                errorMessages.AppendLine("• Angkatan harus 4 digit angka (misal: 2023).");
+
+            if (string.IsNullOrWhiteSpace(semesterStr) || !int.TryParse(semesterStr, out int semester) || semester < 1 || semester > 14)
+                errorMessages.AppendLine("• Semester harus angka antara 1-14.");
+
+            if (errorMessages.Length > 0)
             {
-                MessageBox.Show("NIM harus terdiri dari 11 karakter.", "Kesalahan Validasi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Kesalahan validasi pada baris ke-{rowIndex + 1} (NIM: {nim}):\n\n{errorMessages}",
+                                "Validasi Gagal", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
-            // Jika perlu, tambahkan validasi lain sesuai dengan kebutuhan (misalnya, pola tertentu untuk NIM)
             return true;
         }
 
         private void ImportDataToDatabase()
         {
-            try
+            DataTable dt = (DataTable)dgvPreviewDataMhs.DataSource;
+            int successCount = 0;
+            int skippedCount = 0;
+            StringBuilder skippedNims = new StringBuilder();
+
+            using (SqlConnection conn = new SqlConnection(connect))
             {
-                DataTable dt = (DataTable)dgvPreviewDataMhs.DataSource;
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
 
-                foreach (DataRow row in dt.Rows)
+                try // <-- Hanya satu blok 'try' ini yang kita butuhkan
                 {
-                    // Validasi setiap baris sebelum diimpor
-                    if (!ValidateRow(row))
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        //Jika validasi gagal, lanjutkan ke baris berikutnya
-                        continue; // Lewati baris ini jika tidak valid
-                    }
+                        DataRow row = dt.Rows[i];
+                        string nimToImport = row["nim"]?.ToString() ?? "";
 
-                    string query = "INSERT INTO Mahasiswa (nim, nama_mhs, kelas, angkatan, semester) VALUES (@nim, @nama, @kelas, @angkatan, @semester)";
-                    using (SqlConnection conn = new SqlConnection(connect))
-                    {
-                        conn.Open();
-                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        if (!ValidateRow(row, i))
                         {
-                            cmd.Parameters.AddWithValue("@nim", row["nim"]);
-                            cmd.Parameters.AddWithValue("@nama", row["nama_mhs"]);
-                            cmd.Parameters.AddWithValue("@kelas", row["kelas"]);
-                            cmd.Parameters.AddWithValue("@angkatan", row["angkatan"]);
-                            cmd.Parameters.AddWithValue("@semester", row["semester"]);
+                            skippedCount++;
+                            skippedNims.AppendLine($"- {nimToImport} (Format data salah)");
+                            continue;
+                        }
+
+                        if (NimExists(nimToImport, conn, transaction))
+                        {
+                            skippedCount++;
+                            skippedNims.AppendLine($"- {nimToImport} (NIM sudah terdaftar)");
+                            continue;
+                        }
+
+                        string query = "INSERT INTO Mahasiswa (nim, nama_mhs, kelas, angkatan, semester) VALUES (@nim, @nama_mhs, @kelas, @angkatan, @semester)";
+                        using (SqlCommand cmd = new SqlCommand(query, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@nim", nimToImport);
+                            cmd.Parameters.AddWithValue("@nama_mhs", row["nama_mhs"].ToString());
+                            cmd.Parameters.AddWithValue("@kelas", row["kelas"].ToString());
+                            cmd.Parameters.AddWithValue("@angkatan", Convert.ToInt32(row["angkatan"]));
+                            cmd.Parameters.AddWithValue("@semester", Convert.ToInt32(row["semester"]));
                             cmd.ExecuteNonQuery();
+                            successCount++;
                         }
                     }
+
+                    transaction.Commit();
+
+                    StringBuilder summary = new StringBuilder();
+                    summary.AppendLine("Proses impor selesai.");
+                    summary.AppendLine($"✅ {successCount} data berhasil diimpor.");
+                    if (skippedCount > 0)
+                    {
+                        summary.AppendLine($"⚠️ {skippedCount} data dilewati karena duplikat atau format salah.");
+                        summary.AppendLine("\nNIM yang dilewati:");
+                        summary.Append(skippedNims.ToString());
+                    }
+                    MessageBox.Show(summary.ToString(), "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
                 }
-
-                MessageBox.Show("Data berhasil diimpor ke database.", "Sukses", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close(); // Tutup PreviewForm setelah data diimpor
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Terjadi kesalahan fatal saat mengimpor data, semua perubahan telah dibatalkan. \n\nError: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Terjadi kesalahan saat mengimpor data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
+        }      
+    
         private void dgvPreview_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-
+          
         }
 
         private void btnOkePreview(object sender, EventArgs e)

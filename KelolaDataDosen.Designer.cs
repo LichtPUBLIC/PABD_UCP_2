@@ -149,10 +149,10 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button1.Location = new System.Drawing.Point(387, 20);
+            this.button1.Location = new System.Drawing.Point(31, 167);
             this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 30);
+            this.button1.Size = new System.Drawing.Size(128, 42);
             this.button1.TabIndex = 5;
             this.button1.Text = "Tambah";
             this.button1.UseVisualStyleBackColor = false;
@@ -161,10 +161,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button2.Location = new System.Drawing.Point(387, 86);
+            this.button2.Location = new System.Drawing.Point(31, 233);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(114, 30);
+            this.button2.Size = new System.Drawing.Size(128, 42);
             this.button2.TabIndex = 6;
             this.button2.Text = "Refresh";
             this.button2.UseVisualStyleBackColor = false;
@@ -173,10 +173,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button3.Location = new System.Drawing.Point(387, 54);
+            this.button3.Location = new System.Drawing.Point(210, 169);
             this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(114, 28);
+            this.button3.Size = new System.Drawing.Size(128, 40);
             this.button3.TabIndex = 7;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = false;
@@ -185,10 +185,10 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button4.Location = new System.Drawing.Point(387, 120);
+            this.button4.Location = new System.Drawing.Point(210, 233);
             this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(114, 30);
+            this.button4.Size = new System.Drawing.Size(128, 42);
             this.button4.TabIndex = 8;
             this.button4.Text = "Hapus";
             this.button4.UseVisualStyleBackColor = false;
@@ -197,7 +197,7 @@
             // dgvDosen
             // 
             this.dgvDosen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDosen.Location = new System.Drawing.Point(13, 170);
+            this.dgvDosen.Location = new System.Drawing.Point(419, 24);
             this.dgvDosen.Margin = new System.Windows.Forms.Padding(2);
             this.dgvDosen.Name = "dgvDosen";
             this.dgvDosen.RowHeadersWidth = 62;
@@ -209,7 +209,7 @@
             // button5
             // 
             this.button5.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button5.Location = new System.Drawing.Point(408, 401);
+            this.button5.Location = new System.Drawing.Point(814, 253);
             this.button5.Margin = new System.Windows.Forms.Padding(2);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(93, 30);
@@ -233,7 +233,7 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.lblMessage, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(13, 360);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(419, 212);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -245,7 +245,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 451);
+            this.ClientSize = new System.Drawing.Size(924, 296);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.dgvDosen);

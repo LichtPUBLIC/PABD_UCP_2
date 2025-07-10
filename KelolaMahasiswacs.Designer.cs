@@ -241,7 +241,7 @@
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(203, 27);
             this.button5.TabIndex = 6;
-            this.button5.Text = "Analisis";
+            this.button5.Text = "Analisis Performa";
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.dgvAnalisisMhs);
             // 

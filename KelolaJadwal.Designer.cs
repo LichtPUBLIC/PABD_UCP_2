@@ -68,7 +68,7 @@
             this.tableLayoutPanel1.Controls.Add(this.cmbMK, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.dtpJamMulai, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(21, 18);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -84,7 +84,7 @@
             // 
             this.dtpJamSelesai.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpJamSelesai.Location = new System.Drawing.Point(117, 112);
-            this.dtpJamSelesai.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpJamSelesai.Margin = new System.Windows.Forms.Padding(2);
             this.dtpJamSelesai.Name = "dtpJamSelesai";
             this.dtpJamSelesai.ShowUpDown = true;
             this.dtpJamSelesai.Size = new System.Drawing.Size(176, 20);
@@ -94,7 +94,7 @@
             // 
             this.cmbHari.FormattingEnabled = true;
             this.cmbHari.Location = new System.Drawing.Point(117, 58);
-            this.cmbHari.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbHari.Margin = new System.Windows.Forms.Padding(2);
             this.cmbHari.Name = "cmbHari";
             this.cmbHari.Size = new System.Drawing.Size(176, 21);
             this.cmbHari.TabIndex = 8;
@@ -152,7 +152,7 @@
             // txtIDjadwal
             // 
             this.txtIDjadwal.Location = new System.Drawing.Point(117, 2);
-            this.txtIDjadwal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtIDjadwal.Margin = new System.Windows.Forms.Padding(2);
             this.txtIDjadwal.Name = "txtIDjadwal";
             this.txtIDjadwal.Size = new System.Drawing.Size(176, 20);
             this.txtIDjadwal.TabIndex = 6;
@@ -161,7 +161,7 @@
             // 
             this.cmbMK.FormattingEnabled = true;
             this.cmbMK.Location = new System.Drawing.Point(117, 30);
-            this.cmbMK.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbMK.Margin = new System.Windows.Forms.Padding(2);
             this.cmbMK.Name = "cmbMK";
             this.cmbMK.Size = new System.Drawing.Size(176, 21);
             this.cmbMK.TabIndex = 7;
@@ -170,7 +170,7 @@
             // 
             this.dtpJamMulai.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpJamMulai.Location = new System.Drawing.Point(117, 85);
-            this.dtpJamMulai.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpJamMulai.Margin = new System.Windows.Forms.Padding(2);
             this.dtpJamMulai.Name = "dtpJamMulai";
             this.dtpJamMulai.ShowUpDown = true;
             this.dtpJamMulai.Size = new System.Drawing.Size(176, 20);
@@ -179,10 +179,10 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button1.Location = new System.Drawing.Point(460, 20);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(42, 178);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 31);
+            this.button1.Size = new System.Drawing.Size(104, 37);
             this.button1.TabIndex = 1;
             this.button1.Text = "Tambah";
             this.button1.UseVisualStyleBackColor = false;
@@ -191,10 +191,10 @@
             // button2
             // 
             this.button2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button2.Location = new System.Drawing.Point(460, 55);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Location = new System.Drawing.Point(186, 178);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(96, 31);
+            this.button2.Size = new System.Drawing.Size(104, 37);
             this.button2.TabIndex = 2;
             this.button2.Text = "Refresh";
             this.button2.UseVisualStyleBackColor = false;
@@ -203,10 +203,10 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button3.Location = new System.Drawing.Point(460, 90);
-            this.button3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button3.Location = new System.Drawing.Point(42, 242);
+            this.button3.Margin = new System.Windows.Forms.Padding(2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 31);
+            this.button3.Size = new System.Drawing.Size(104, 37);
             this.button3.TabIndex = 3;
             this.button3.Text = "Edit";
             this.button3.UseVisualStyleBackColor = false;
@@ -215,10 +215,10 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.button4.Location = new System.Drawing.Point(460, 125);
-            this.button4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button4.Location = new System.Drawing.Point(186, 242);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(96, 31);
+            this.button4.Size = new System.Drawing.Size(104, 37);
             this.button4.TabIndex = 4;
             this.button4.Text = "Hapus";
             this.button4.UseVisualStyleBackColor = false;
@@ -226,8 +226,8 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(460, 328);
-            this.button6.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button6.Location = new System.Drawing.Point(842, 248);
+            this.button6.Margin = new System.Windows.Forms.Padding(2);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(96, 24);
             this.button6.TabIndex = 6;
@@ -238,12 +238,12 @@
             // dgvJadwal
             // 
             this.dgvJadwal.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvJadwal.Location = new System.Drawing.Point(15, 167);
-            this.dgvJadwal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvJadwal.Location = new System.Drawing.Point(378, 18);
+            this.dgvJadwal.Margin = new System.Windows.Forms.Padding(2);
             this.dgvJadwal.Name = "dgvJadwal";
             this.dgvJadwal.RowHeadersWidth = 62;
             this.dgvJadwal.RowTemplate.Height = 28;
-            this.dgvJadwal.Size = new System.Drawing.Size(541, 117);
+            this.dgvJadwal.Size = new System.Drawing.Size(560, 173);
             this.dgvJadwal.TabIndex = 8;
             this.dgvJadwal.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvJadwal_CellClick);
             // 
@@ -252,13 +252,14 @@
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel2.Controls.Add(this.lblMessage, 0, 0);
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(15, 288);
-            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(378, 202);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(541, 36);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(560, 31);
             this.tableLayoutPanel2.TabIndex = 9;
+            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
             // 
             // lblMessage
             // 
@@ -274,7 +275,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(575, 363);
+            this.ClientSize = new System.Drawing.Size(955, 293);
             this.Controls.Add(this.tableLayoutPanel2);
             this.Controls.Add(this.dgvJadwal);
             this.Controls.Add(this.button6);
@@ -283,7 +284,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "KelolaJadwal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "KelolaJadwal";

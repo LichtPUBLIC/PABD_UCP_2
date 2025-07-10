@@ -36,21 +36,21 @@
             // dgvPreviewDataMhs
             // 
             this.dgvPreviewDataMhs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvPreviewDataMhs.Location = new System.Drawing.Point(26, 27);
-            this.dgvPreviewDataMhs.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvPreviewDataMhs.Location = new System.Drawing.Point(11, 11);
+            this.dgvPreviewDataMhs.Margin = new System.Windows.Forms.Padding(2);
             this.dgvPreviewDataMhs.Name = "dgvPreviewDataMhs";
             this.dgvPreviewDataMhs.RowHeadersWidth = 62;
             this.dgvPreviewDataMhs.RowTemplate.Height = 28;
-            this.dgvPreviewDataMhs.Size = new System.Drawing.Size(489, 202);
+            this.dgvPreviewDataMhs.Size = new System.Drawing.Size(654, 202);
             this.dgvPreviewDataMhs.TabIndex = 0;
             this.dgvPreviewDataMhs.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPreview_CellClick);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(442, 246);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Location = new System.Drawing.Point(567, 225);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(73, 25);
+            this.button1.Size = new System.Drawing.Size(98, 25);
             this.button1.TabIndex = 1;
             this.button1.Text = "OK";
             this.button1.UseVisualStyleBackColor = true;
@@ -60,10 +60,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(533, 292);
+            this.ClientSize = new System.Drawing.Size(677, 261);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dgvPreviewDataMhs);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "PreviewDataMhs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PreviewDataMhs";

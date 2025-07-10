@@ -293,9 +293,22 @@ namespace projectsem4
 
         private void btnRefreshMhs(object sender, EventArgs e)
         {
+            // 1. Buat dan mulai stopwatch
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            // 2. Proses yang sudah ada (clear cache dan load data)
             _cache.Remove(CacheKey);
             LoadData();
-            MessageBox.Show("Tampilan data mahasiswa berhasil diperbarui.", "Refresh Selesai", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            // 3. Hentikan stopwatch
+            stopwatch.Stop();
+
+            // 4. Tampilkan waktu yang terukur dalam MessageBox
+            MessageBox.Show($"Tampilan data mahasiswa berhasil diperbarui dalam {stopwatch.ElapsedMilliseconds} milidetik.",
+                            "Refresh Selesai",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
         }
 
         private void btnUbahMhs(object sender, EventArgs e)
